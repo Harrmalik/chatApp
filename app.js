@@ -3,9 +3,16 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var passport = require("passport");
-var session = require("express-session")
+// Initialize Models
+require('./models/users.js');
+require('./models/posts.js');
+var session = require("express-session");
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+//connect to database
+mongoose.connect('mongodb://localhost:27017/chatApp');
 
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
@@ -28,12 +35,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
-//// Initialize Passport
-var initPassport = require('./passport-init');
-initPassport(passport);
 
 app.use('/api', api);
 app.use('/auth', authenticate);
+
+//// Initialize Passport
+var initPassport = require('./passport-init');
+initPassport(passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
