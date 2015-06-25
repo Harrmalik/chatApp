@@ -14,6 +14,7 @@ var mongoose = require('mongoose');
 //connect to database
 mongoose.connect('mongodb://localhost:27017/chatApp');
 
+var index = require("./routes/index");
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
 
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/', index);
 app.use('/api', api);
 app.use('/auth', authenticate);
 

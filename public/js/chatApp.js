@@ -1,4 +1,13 @@
-var app = angular.module('chatApp', ['ngRoute']);
+var app = angular.module('chatApp', ['ngRoute', 'ngResource']).run(function($rootScope, $http){
+	$rootScope.authenticated = false;
+	$rootScope.current_user = 'Guest';
+
+	$rootScope.signout = function(){
+		$http.get('auth/signout');
+		$rootScope.authenticated = false;
+		$rootScope.current_user = 'Guest';
+	};
+});
 
 app.config(function($routeProvider){
   $routeProvider
@@ -19,32 +28,68 @@ app.config(function($routeProvider){
     });
 });
 
-app.controller('mainController', function($scope){
-  $scope.posts = [];
-  $scope.newPost = {created_by: '', text: '', created_at: '', user_img: ''};
+// app.factory('postFactory', function($http) {
+//   var factory = {};
+//   factory. getAll = function() {
+//     return $http.get('/api/posts');
+//   };
+//   return factory;
+// });
 
-  $scope.post = function(){
-    $scope.newPost.created_at = Date.now();
-    $scope.posts.push($scope.newPost);
-    $scope.newPost = {created_by: '', text: '', created_at: '', user_img: ''};
-  };
+app.factory('postFactory', function($resource){
+	return $resource('/api/posts/:id');
 });
 
-app.controller('authController', function($scope){
-  $scope.user = {username: '', password: ''};
-  $scope.error_message = '';
+app.controller('mainController', function($scope, $rootScope, postFactory){
+	$scope.posts = postFactory.query();
+	$scope.newPost = {created_by: '', text: '', created_at: ''};
+/*
+//used for basic read from json
+	postFactory.getAll().success(function(data){
+		$scope.posts = data;
+	});
+*/
+	$scope.post = function() {
+		$scope.newPost.created_by = $rootScope.current_user;
+		$scope.newPost.created_at = Date.now();
+		postFactory.save($scope.newPost, function(){
+			$scope.posts = postFactory.query();
+			$scope.newPost = {created_by: '', text: '', created_at: ''};
+		});
+	};
+	$scope.delete = function(post)	{
+		postFactory.delete({id: post._id});
+		$scope.posts = postFactory.query();
+	};
+});
 
-  postService.getAll().success(function(data){
-    $scope.posts = data;
-  });
+app.controller('authController', function($scope, $http, $rootScope, $location){
+	$scope.user = {username: '', password: ''};
+	$scope.error_message = '';
 
-  $scope.login = function(){
-    //placeholder until authentication is implemented
-    $scope.error_message = 'login request for ' + $scope.user.username;
-  };
+	$scope.login = function(){
+		$http.post('/auth/login', $scope.user).success(function(data){
+			if(data.state == 'success'){
+				$rootScope.authenticated = true;
+				$rootScope.current_user = data.user.username;
+				$location.path('/');
+			}
+			else{
+				$scope.error_message = data.message;
+			}
+		});
+	};
 
-  $scope.register = function(){
-    //placeholder until authentication is implemented
-    $scope.error_message = 'registeration request for ' + $scope.user.username;
-  };
+	$scope.register = function(){
+		$http.post('/auth/signup', $scope.user).success(function(data){
+			if(data.state == 'success'){
+				$rootScope.authenticated = true;
+				$rootScope.current_user = data.user.username;
+				$location.path('/');
+			}
+			else{
+				$scope.error_message = data.message;
+			}
+		});
+	};
 });

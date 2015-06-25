@@ -1,34 +1,40 @@
-<!--main.html-->
-<html>
-  <head>
+<!doctype html>
+<html ng-app="chatApp">
+	<head>
     <title>Cartoon Chat App</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.3/semantic.min.js"></script>
     <script src="js/chatApp.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.3/semantic.min.css">
     <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body ng-app="chatApp">
-    <div id='main' class="ui page grid">
-      <header class="ui sixteen wide column">
-        <nav class="ui secondary pointing menu blue fl">
+	</head>
+	<body>
+		<div id='main'>
+			 <header class="ui sixteen wide column">
+        <nav class="ui secondary pointing menu blue">
           <a class="active item" href="#">
             <i class="home icon"></i> Home
           </a>
-          <a class="item" href="#/login">
+          <a class="item" href="#/login" ng-hide="authenticated">
             <i class="mail icon"></i> Login
           </a>
-          <a class="item" href="#/register">
+          <a class="item" href="#/register" ng-hide="authenticated">
             <i class="user icon"></i> Register
+          </a>
+          <a class="item" href="#" ng-show="authenticated">
+            <i class="user icon" ng-click="signout()"></i> Logout
+          </a>
+          <a class="item" href="#">
+            <i class="user icon"></i> Signed in as {{current_user}}
           </a>
         </nav>
       </header>
-      <div class="ui sixteen wide column">
-        <div ng-view>
-        </div>
-      </div>
-    </div>
-  </body>
+      
+			<section ng-view>
+			</section>
+		</div>
+	</body>
 </html>

@@ -1,11 +1,38 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<!doctype html>
+<html ng-app="chatApp">
+	<head>
+    <title>Cartoon Chat App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.3/semantic.min.js"></script>
+    <script src="js/chatApp.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.3/semantic.min.css">
+    <link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div id='main'>
+			 <header class="ui sixteen wide column">
+        <nav class="ui secondary pointing menu blue fl">
+          <a class="active item" href="#">
+            <i class="home icon"></i> Home
+          </a>
+          <a class="item" href="#/login" ng-hide="authenticated">
+            <i class="mail icon"></i> Login
+          </a>
+          <a class="item" href="#/register" ng-hide="authenticated">
+            <i class="user icon"></i> Register
+          </a>
+          <a class="item" href="#" ng-show="authenticated">
+            <i class="user icon" ng-click="signout()"></i> Logout
+          </a>
+          <a class="item" href="#">
+            <i class="user icon"></i> Signed in as {{current_user}}
+          </a>
+        </nav>
+      </header>
+			<div ng-view>
+			</div>
+		</div>
+	</body>
 </html>

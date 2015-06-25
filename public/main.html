@@ -1,49 +1,45 @@
 <!--main.html-->
-<section>
-  <article class="ui">
-    <form class="ui form fluid segment stacked blue" ng-Submit="post()">
-        <div class="required field">
-          <label>Username</label>
-          <div class="ui icon input">
-            <input required type="text" placeholder="Your name" ng-model="newPost.created_by" />
-            <i class="user icon"></i>
-          </div>
+<article>
+  <form class="ui form fluid segment stacked blue" ng-Submit="post()" ng-show='authenticated'>
+      <div class="required field">
+        <div class="ui icon input">
+          <h4>{{current_user}} says</h4>
         </div>
-        <div class="field">
-                    <div class="ui icon input">
-            <input required type="text" placeholder="Whats on your mind?" ng-model="newPost.text" />
-            <i class="user icon"></i>
-          </div>
+      </div>
+      <div class="field">
+                  <div class="ui icon input">
+          <input required type="text" placeholder="Whats on your mind?" ng-model="newPost.text" />
+          <i class="user icon"></i>
         </div>
-      <input class="ui button blue" type="submit" value="Send" id="send" />
-    </form>
-  </article>
-  
-  <div class="ui divider"></div>
-  
-  <article id="post-stream">
-    <h3 class="ui blue header"><i class="ui chat icon"></i>Chat Feed</h3>
-      <div class="ui feed" ng-repeat="post in posts | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
-        <div class="event">
-          <div class="label">
-            <img src="images/finn.png" class="ui avatar circular image">
+      </div>
+    <input class="ui button blue" type="submit" value="Send" id="send" />
+  </form>
+</article>
+
+<div class="ui divider"></div>
+
+<article id="post-stream">
+  <h3 class="ui blue header"><i class="ui chat icon"></i>Chat Feed</h3>
+    <div class="ui feed" ng-repeat="post in posts | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
+      <div class="event">
+        <div class="label">
+          <img src="images/finn.png" class="ui avatar circular image">
+        </div>
+        <div class="content">
+          <div class="summary">
+            <a class="user">
+              {{post.created_by}}
+            </a> {{post.text}}
+            <div class="date">
+              {{post.created_at | date:"h:mma 'on' MMM d, y"}}
+            </div>
           </div>
-          <div class="content">
-            <div class="summary">
-              <a class="user">
-                {{post.created_by}}
-              </a> {{post.text}}
-              <div class="date">
-                {{post.created_at | date:"h:mma 'on' MMM d, y"}}
-              </div>
-            </div>
-            <div class="meta">
-              <a class="like">
-                <i class="like icon"></i> 4 Likes
-              </a>
-            </div>
+          <div class="meta">
+            <a class="like">
+              <i class="like icon"></i> 4 Likes
+            </a>
           </div>
         </div>
       </div>
-  </article>
-</section>
+    </div>
+</article>
