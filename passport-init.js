@@ -22,6 +22,7 @@ module.exports = function(passport){
 			passReqToCallback : true
 		},
 		function(req, username, password, done) { 
+			username = username.toLowerCase();
 			// check in mongo if a user with username exists or not
 			User.findOne({ 'username' :  username }, 
 				function(err, user) {
@@ -31,7 +32,7 @@ module.exports = function(passport){
 					// Username does not exist, log the error and redirect back
 					if (!user){
 						console.log('User Not Found with username '+username);
-						return done(null, false);                 
+						return done(err, false);                 
 					}
 					// User exists but wrong password, log the error 
 					if (!isValidPassword(user, password)){
@@ -50,7 +51,7 @@ module.exports = function(passport){
 			passReqToCallback : true // allows us to pass back the entire request to the callback
 		},
 		function(req, username, password, done) {
-
+			username = username.toLowerCase();
 			// find a user in mongo with provided username
 			User.findOne({ 'username' :  username }, function(err, user) {
 				// In case of any error, return using the done method
@@ -61,7 +62,7 @@ module.exports = function(passport){
 				// already exists
 				if (user) {
 					console.log('User already exists with username: '+username);
-					return done(null, false);
+					return done(done, false);
 				} else {
 					// if there is no user, create the user
 					var newUser = new User();

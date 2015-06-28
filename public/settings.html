@@ -1,0 +1,86 @@
+<nav class="ui vertical pointing menu four wide column">
+  <a class="item" ng-class="{ active : isSelected('personal')}" ng-click="selectTab('personal')">
+    <i class="home icon"></i> Personal
+  </a>
+  <a class="item" ng-class="{ active : isSelected('account')}" ng-click="selectTab('account')">
+    <i class="mail icon"></i> Account 
+  </a>
+  <a class="item" ng-class="{ active : isSelected('privacy')}" ng-click="selectTab('privacy')">
+    <i class="user icon"></i> Privacy
+  </a>
+</nav>
+
+<article class="eight wide column">
+  <article ng-show="isSelected('personal')">
+     <form class="ui form">
+        <h4 class="ui dividing header">Personal Information</h4>
+        <div class="two fields">
+          <div class="field">
+            <label>Name</label>
+            <div class="two fields">
+              <div class="field">
+                <input type="text" name="first-name" placeholder="First Name" >
+              </div>
+              <div class="field">
+                <input type="text" name="last-name" placeholder="Last Name">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <input type="text" name="displayName" placeholder="Display Name">
+        </div>
+        <p>{{avatar}}</p>
+        <p>{{tab}}</p>
+        
+        <h5>Choose a avatar...</h5>
+        <div class="ui tiny images">
+          <a href ng-click="selectImg(0)"><img class="ui image" src="/images/finn.png" ></a>
+          <a href ng-click="selectImg(1)"><img class="ui image" src="/images/cartman.jpeg"></a>
+          <a href ng-click="selectImg(2)"><img class="ui image" src="/images/stewie.png"></a>
+          <a href ng-click="selectImg(3)"><img class="ui image" src="/images/shaggy.jpg"></a>
+          <a href ng-click="selectImg(4)"><img class="ui image" src="/images/sponge.jpeg"></a>
+          <a href ng-click="selectImg(5)"><img class="ui image" src="/images/rnm.png"></a>
+        </div>
+        <input class="ui button blue" type="submit" value="Send" id="send" />
+     </form>
+  </article>
+  
+  <article ng-show="isSelected('account')">
+    <form class="ui form">
+        <h4 class="ui dividing header">Acount Information</h4>
+        <div class="two fields">
+          <div class="required field">
+            <label>Username</label>
+            <div class="ui icon input">
+              <input type="text" ng-model="user.username" placeholder="Username">
+              <i class="user icon"></i>
+            </div>
+          </div>
+          <div class="required field">
+            <label>Password</label>
+            <div class="ui icon input">
+              <input type="password" ng-model="user.password" placeholder="Password">
+              <i class="lock icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <input type="text" name="displayName" placeholder="Display Name">
+        </div>
+        
+        <h5>Change Password</h5>
+        <label>Password</label>
+        <div class="ui icon input">
+          <input type="password" ng-model="user.password" placeholder="Password">
+          <i class="lock icon"></i>
+        </div>
+        
+        <input class="ui button blue" type="submit" value="Send" id="send" />
+     </form>
+  </article>
+  
+  <article ng-show="isSelected('privacy')">
+    
+  </article>
+</article>

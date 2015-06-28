@@ -10,13 +10,17 @@ var session = require("express-session");
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var connectMongo = require("connect-mongo");
 
+
+var MongoStore = connectMongo(session);
 //connect to database
 mongoose.connect('mongodb://localhost:27017/chatApp');
 
 var index = require("./routes/index");
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
+var user = require('./routes/users');
 
 var app = express();
 
@@ -28,7 +32,12 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(session({
-  secret: 'secret'
+  secret: 'secret',
+  saveUninitialized: false,
+  resave: false,
+  store: new MongoStore({
+      mongooseConnection: mongoose.connection
+  })
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

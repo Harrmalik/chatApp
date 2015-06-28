@@ -9,21 +9,39 @@ a {
 	color: #00B7FF;
 }
 
-.submit-btn {
-	background-color: #b1dbff;
-	margin: 10px 0 10px 0;
-}
-
-.post {
-	padding: 10px;
-	margin-bottom: 5px;
-	border-radius: 5px;
-}
-
 .odd {
 	background-color: #f2f9ff;
-	
+
 }
 .even {
 	background-color: #eceff3;
+}
+
+section {
+	padding: 20px 0 !important;
+	max-width: 1200px;
+	margin: 0 auto !important;
+}
+
+#profile {
+	padding: 0;
+	margin: 0;
+}
+
+#imgWrapper {
+	position: relative;
+}
+
+#profile img {
+	width: 100%;
+	height: auto;
+	position: absolute;
+	z-index: -1;
+	top: -20px;
+}
+
+#profile #banner {
+	position: relative;
+	width: 100%;
+	
 }
