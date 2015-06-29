@@ -12,26 +12,24 @@
 
 <article class="eight wide column">
   <article ng-show="isSelected('personal')">
-     <form class="ui form">
+     <form class="ui form" ng-submit="update(displayName,avatar)">
         <h4 class="ui dividing header">Personal Information</h4>
-        <div class="two fields">
-          <div class="field">
-            <label>Name</label>
-            <div class="two fields">
-              <div class="field">
-                <input type="text" name="first-name" placeholder="First Name" >
-              </div>
-              <div class="field">
-                <input type="text" name="last-name" placeholder="Last Name">
-              </div>
-            </div>
-          </div>
-        </div>
+        <!--<div class="two fields">-->
+        <!--  <div class="field">-->
+        <!--    <label>Name</label>-->
+        <!--    <div class="two fields">-->
+        <!--      <div class="field">-->
+        <!--        <input type="text" name="first-name" placeholder="First Name" >-->
+        <!--      </div>-->
+        <!--      <div class="field">-->
+        <!--        <input type="text" name="last-name" placeholder="Last Name">-->
+        <!--      </div>-->
+        <!--    </div>-->
+        <!--  </div>-->
+        <!--</div>-->
         <div class="field">
-          <input type="text" name="displayName" placeholder="Display Name">
+          <input type="text" name="displayName" placeholder="{{user_display}}" ng-model="displayName">
         </div>
-        <p>{{avatar}}</p>
-        <p>{{tab}}</p>
         
         <h5>Choose a avatar...</h5>
         <div class="ui tiny images">
@@ -41,6 +39,9 @@
           <a href ng-click="selectImg(3)"><img class="ui image" src="/images/shaggy.jpg"></a>
           <a href ng-click="selectImg(4)"><img class="ui image" src="/images/sponge.jpeg"></a>
           <a href ng-click="selectImg(5)"><img class="ui image" src="/images/rnm.png"></a>
+        </div>
+        <div class="field hidden">
+          <input type="text" name="userAvatar" ng-model="avatar">
         </div>
         <input class="ui button blue" type="submit" value="Send" id="send" />
      </form>

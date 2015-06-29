@@ -1,28 +1,85 @@
 0 info it worked if it ends with ok
 1 verbose cli [ '/home/ubuntu/.nvm/v0.10.35/bin/node',
 1 verbose cli   '/home/ubuntu/.nvm/v0.10.35/bin/npm',
-1 verbose cli   'start' ]
+1 verbose cli   'install',
+1 verbose cli   'karma-jasmie' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.35
-4 verbose run-script [ 'prestart', 'start', 'poststart' ]
-5 info prestart workspace@0.0.0
-6 info start workspace@0.0.0
-7 verbose unsafe-perm in lifecycle true
-8 info workspace@0.0.0 Failed to exec start script
-9 error workspace@0.0.0 start: `node ./bin/www`
-9 error Exit status 1
-10 error Failed at the workspace@0.0.0 start script.
-10 error This is most likely a problem with the workspace package,
-10 error not with npm itself.
-10 error Tell the author that this fails on your system:
-10 error     node ./bin/www
-10 error You can get their info via:
-10 error     npm owner ls workspace
-10 error There is likely additional logging output above.
-11 error System Linux 3.14.13-c9
-12 error command "/home/ubuntu/.nvm/v0.10.35/bin/node" "/home/ubuntu/.nvm/v0.10.35/bin/npm" "start"
-13 error cwd /home/ubuntu/workspace
-14 error node -v v0.10.35
-15 error npm -v 1.4.28
-16 error code ELIFECYCLE
-17 verbose exit [ 1, true ]
+4 verbose readDependencies using package.json deps
+5 verbose cache add [ 'karma-jasmie', null ]
+6 verbose cache add name=undefined spec="karma-jasmie" args=["karma-jasmie",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'karma-jasmie',
+7 verbose parsed url   path: 'karma-jasmie',
+7 verbose parsed url   href: 'karma-jasmie' }
+8 silly lockFile 174a7f69-karma-jasmie karma-jasmie
+9 verbose lock karma-jasmie /home/ubuntu/.npm/174a7f69-karma-jasmie.lock
+10 silly lockFile 174a7f69-karma-jasmie karma-jasmie
+11 silly lockFile 174a7f69-karma-jasmie karma-jasmie
+12 verbose addNamed [ 'karma-jasmie', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile e65f778d-karma-jasmie karma-jasmie@
+15 verbose lock karma-jasmie@ /home/ubuntu/.npm/e65f778d-karma-jasmie.lock
+16 silly addNameRange { name: 'karma-jasmie', range: '*', hasData: false }
+17 verbose request where is /karma-jasmie
+18 verbose request registry https://registry.npmjs.org/
+19 verbose request id 77dda54ead88b507
+20 verbose url raw /karma-jasmie
+21 verbose url resolving [ 'https://registry.npmjs.org/', './karma-jasmie' ]
+22 verbose url resolved https://registry.npmjs.org/karma-jasmie
+23 verbose request where is https://registry.npmjs.org/karma-jasmie
+24 info trying registry request attempt 1 at 01:44:22
+25 http GET https://registry.npmjs.org/karma-jasmie
+26 http 404 https://registry.npmjs.org/karma-jasmie
+27 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+27 verbose headers   'content-type': 'application/json',
+27 verbose headers   'cache-control': 'max-age=0',
+27 verbose headers   'content-length': '51',
+27 verbose headers   'accept-ranges': 'bytes',
+27 verbose headers   date: 'Mon, 29 Jun 2015 01:44:22 GMT',
+27 verbose headers   via: '1.1 varnish',
+27 verbose headers   age: '0',
+27 verbose headers   connection: 'keep-alive',
+27 verbose headers   'x-served-by': 'cache-dfw1832-DFW',
+27 verbose headers   'x-cache': 'MISS',
+27 verbose headers   'x-cache-hits': '0',
+27 verbose headers   'x-timer': 'S1435542262.128122,VS0,VE49' }
+28 silly registry.get cb [ 404,
+28 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+28 silly registry.get     'content-type': 'application/json',
+28 silly registry.get     'cache-control': 'max-age=0',
+28 silly registry.get     'content-length': '51',
+28 silly registry.get     'accept-ranges': 'bytes',
+28 silly registry.get     date: 'Mon, 29 Jun 2015 01:44:22 GMT',
+28 silly registry.get     via: '1.1 varnish',
+28 silly registry.get     age: '0',
+28 silly registry.get     connection: 'keep-alive',
+28 silly registry.get     'x-served-by': 'cache-dfw1832-DFW',
+28 silly registry.get     'x-cache': 'MISS',
+28 silly registry.get     'x-cache-hits': '0',
+28 silly registry.get     'x-timer': 'S1435542262.128122,VS0,VE49' } ]
+29 silly lockFile e65f778d-karma-jasmie karma-jasmie@
+30 silly lockFile e65f778d-karma-jasmie karma-jasmie@
+31 error 404 404 Not Found: karma-jasmie
+31 error 404
+31 error 404 'karma-jasmie' is not in the npm registry.
+31 error 404 You should bug the author to publish it
+31 error 404 It was specified as a dependency of 'workspace'
+31 error 404
+31 error 404 Note that you can also install from a
+31 error 404 tarball, folder, or http url, or git url.
+32 error System Linux 3.14.13-c9
+33 error command "/home/ubuntu/.nvm/v0.10.35/bin/node" "/home/ubuntu/.nvm/v0.10.35/bin/npm" "install" "karma-jasmie"
+34 error cwd /home/ubuntu/workspace
+35 error node -v v0.10.35
+36 error npm -v 1.4.28
+37 error code E404
+38 verbose exit [ 1, true ]

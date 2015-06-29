@@ -3,7 +3,7 @@
   <div ng-show="authenticated">
    <div class="ui segment stacked blue">
   <h3 class="ui header">
-     <img ng-src="{{user_avatar}}" class="ui image tiny floated left">
+     <img src="{{getUserAvatar(user_avatar)}}" class="ui image tiny floated left">
      {{current_user}}
      <div class="sub header">{{user_display}}</div>
   </h3>
@@ -70,7 +70,7 @@
       <div class="ui feed" ng-repeat="post in posts | filter:search | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
         <div class="event">
           <div class="label">
-            <a href ng-click="getUserAvatar()"><img src="images/finn.png" class="ui avatar circular image"></a>
+            <a href ng-click="getUserAvatar(post.created_by)"><img src="images/finn.png" class="ui avatar circular image"></a>
           </div>
           <div class="content" ng-if="selected.Post !== post">
             <div class="summary">
@@ -85,7 +85,7 @@
               <a class="like" ng-click="addLike(post)">
                 <i class="like icon"></i> {{post.likes}}
               </a>
-              <a ng-click="followUser(current_user, post)" ng-if="user_display !== post.created_by">
+              <a ng-click="followUser(current_user, post)" ng-if="current_user !== post.created_by">
                 <i class="user icon"></i> Follow {{post.created_by}}
               </a>
             </div>
@@ -107,7 +107,7 @@
             </div>
           </div>
         </div>
-        <div class="event" ng-if="user_display == post.created_by">
+        <div class="event" ng-if="current_user == post.created_by">
           <div class="summary">
             <div class="ui primary button" ng-if="selected.Post !== post" ng-click="edit(post)">
               Edit

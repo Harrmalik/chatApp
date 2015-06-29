@@ -1,0 +1,1 @@
+karma start tests/lib/karma.conf.js --no-browsers

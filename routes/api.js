@@ -49,15 +49,23 @@ router.route('/posts')
 			}
 			return res.status(200).send(posts);
 		});
+		// User.find(function(err, users){
+		// 	if(err){
+		// 		return res.status(500).send(err);
+		// 	}
+		// 	return res.status(200).send(users);
+		// });
 	});
 
 //post-specific commands. likely won't be used
 router.route('/posts/:id')
 	//gets specified post
 	.get(function(req, res){
+		console.log(req.params.id);
 		Post.find({created_by: req.params.id}).limit(10).sort({created_at: -1}).exec(function(err, post){
 			if(err)
 				return res.send(err);
+			
 			res.json(post);
 		});
 	}) 
@@ -115,20 +123,15 @@ router.route('/users/:name')
 		});
 	}) 
 	.put(function(req, res){
-		User.findById(req.params.name,function(err, user){
-			if(err)
+		User.findOneAndUpdate({
+			username: req.params.name
+		},{display_name: req.body.display_name, avatar: req.body.avatar
+		}, {new: true},function(err, user){
+			if (err)
 				return res.send(err);
-
-			user.display_name = req.body.display_name;
-			user.avatar = req.body.avatar;
-
-			user.save(function(err, user){
-				if(err)
-					return res.send(err);
-
+			
 				res.json(user);
 			});
-		});
 	})
 	//deletes the user and all of their post
 	.delete(function(req, res) {
@@ -151,10 +154,6 @@ router.route('/users/:name')
 	
 router.route('/follow/:name')
 	.get(function(req, res){
-		// User.find({username: req.params.name}, function(err, user){
-		// 	if(err)
-		// 		return res.send(err);
-		
 		User.find({username: req.params.name}, {"follows": 1, "followers": 1, "_id": 0}, function(err, data){
 			if(err) return res.send(err);
 			res.json(data);
