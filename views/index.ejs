@@ -12,9 +12,9 @@
 	</head>
 	<body>
 		<div id='main'>
-			 <header class="ui sixteen wide column">
-			   <nav class="ui secondary pointing menu blue floating">
-          <a class="item" ng-class="{ active : isSelected('index')}" href="#" ng-click="selectedPage('index')">
+			 <header class="ui sixteen wide column" ng-controller="navController as NavCtrl">
+			   <nav class="ui secondary pointing menu blue floating" ng-controller="authController">
+          <a class="item" ng-class="{ active : isSelected('index')}" href="#" ng-click="NavCtrl.selectedPage('index')">
             <i class="home icon"></i> Home
           </a>
           <a class="item" ng-class="{ active : isSelected('inbox')}" href ng-click="selectedPage('inbox')">
@@ -31,20 +31,20 @@
             <a class="item" href="#/register" ng-hide="authenticated" ng-class="{ active : isSelected('register')}" ng-click="selectedPage('register')">
               <i class="user icon"></i> Register
             </a>
-            <a class="item" href="../auth/signout" ng-show="authenticated">
+            <a class="item" href ng-click="signout()" ng-show="authenticated">
               <i class="user icon"></i> Logout
             </a>
             <a class="item" href="#/settings" ng-show="authenticated" ng-class="{ active : isSelected('settings')}" ng-click="selectedPage('settings')">
               <i class="user icon"></i> Settings
             </a>
-            <a class="item" href="#">
+            <a class="item" href="#" ng-show="authenticated">
               <i class="user icon"></i> Signed in as {{current_user}}
             </a>
           </nav>
         </nav>
       </header>
       
-			<section ng-view class="ui grid">
+			<section ng-view class="ui grid" ng-controller="postsController">
 			</section>
 		</div>
 		

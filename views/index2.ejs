@@ -1,0 +1,58 @@
+<!doctype html>
+<html ng-app="chatApp">
+	<head>
+    <title>Cartoon Chat App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.3/semantic.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.3/semantic.min.css">
+    <link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div id='main'>
+			 <header class="ui sixteen wide column">
+			   <nav class="ui secondary pointing menu blue floating">
+          <a class="item" ng-class="{ active : isSelected('index')}" href="#" ng-click="selectedPage('index')">
+            <i class="home icon"></i> Home
+          </a>
+          <a class="item" ng-class="{ active : isSelected('inbox')}" href ng-click="selectedPage('inbox')">
+            <i class="mail icon"></i> Messages
+          </a>
+          <a class="item" ng-class="{ active : isSelected('friends')}" href ng-click="selectedPage('friends')">
+            <i class="user icon"></i> Friends
+          </a>
+          
+          <nav class="right secondary menu">
+            <a class="item" href="#/login" ng-hide="authenticated" ng-class="{ active : isSelected('login')}" ng-click="selectedPage('login')">
+              <i class="mail icon"></i> Login
+            </a>
+            <a class="item" href="#/register" ng-hide="authenticated" ng-class="{ active : isSelected('register')}" ng-click="selectedPage('register')">
+              <i class="user icon"></i> Register
+            </a>
+            <a class="item" href="../signout" ng-show="authenticated">
+              <i class="user icon"></i> Logout
+            </a>
+            <a class="item" href="#/settings" ng-show="authenticated" ng-class="{ active : isSelected('settings')}" ng-click="selectedPage('settings')">
+              <i class="user icon"></i> Settings
+            </a>
+            <a class="item" href="#">
+              <i class="user icon"></i> Signed in as {{current_user}}
+            </a>
+          </nav>
+        </nav>
+      </header>
+      
+			<p>logged in</p>
+		</div>
+		
+    <script src="js/main.js"></script>
+    
+    <script src="js/chatApp.js"></script>
+    <script src="js/services/services.js"></script>
+    <script src="js/controllers/authenticate.js"></script>
+    <script src="js/controllers/settings.js"></script>
+    <script src="js/controllers/posts.js"></script>
+	</body>
+</html>

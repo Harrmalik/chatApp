@@ -7,10 +7,9 @@ module.exports = function(passport){
     /* GET home page. */
     router.get('/', function(req, res, next) {
         if(req.user) {
-            successRedirect: '/auth/success';
+            successRedirect: '/success';
             res.render('index', { title: "Chirp"});
         }
-    	console.log("request is " + req.user.username);
     	res.render('index', { title: "Chirp"});
     });
 
@@ -21,20 +20,20 @@ module.exports = function(passport){
 
     //sends failure login state back to angular
     router.get('/failure', function(req, res){
-        console.log(req.body);
-        res.send({state: 'failure', user: null, message: "eeff"});
+        console.log(req);
+        res.send({state: 'failure', user: null, message: "ok"});
     });
 
     //log in
     router.post('/login', passport.authenticate('login', {
-        successRedirect: '/auth/success',
-        failureRedirect: '/auth/failure'
+        successRedirect: '/success',
+        failureRedirect: '/failure'
     }));
 
     //sign up
     router.post('/signup', passport.authenticate('signup', {
-        successRedirect: '/auth/success',
-        failureRedirect: '/auth/failure'
+        successRedirect: '/success',
+        failureRedirect: '/failure'
     }));
 
     //log out

@@ -27,7 +27,7 @@ build/Release
 node_modules
 
 .c9/
-data/
+data/db1
 mongod-start.txt
 mongod-start
 www

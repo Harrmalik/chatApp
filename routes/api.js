@@ -156,6 +156,8 @@ router.route('/follow/:name')
 	.get(function(req, res){
 		User.find({username: req.params.name}, {"follows": 1, "followers": 1, "_id": 0}, function(err, data){
 			if(err) return res.send(err);
+			console.log("yooooo");
+			console.log(data);
 			res.json(data);
 		});
 	})

@@ -1,34 +1,23 @@
 var app = angular.module('chatApp', ['ngRoute', 'appSettings', 'appServices', 'appAuthentication', 'appPosts']).run(function($rootScope, $http){
-	$rootScope.authenticated = false;
-	$rootScope.current_user = 'Guest';
+	//$rootScope.authenticated = false;
+	//$rootScope.current_user = 'Guest';
 	$rootScope.user_display = $rootScope.current_user;
 	$rootScope.user_avatar = 1;
-	$rootScope.page = "index";
-	
-	$rootScope.selectedPage = function(currentPage) {
-		$rootScope.page = currentPage;
-	};
-	
-	$rootScope.isSelected = function(currentPage) {
-		return $rootScope.page === currentPage;
-	};
+  $rootScope.check = 0;
 
-	$rootScope.signout = function(){
-		$http.get('auth/signout');
-		$rootScope.authenticated = false;
-		$rootScope.current_user = 'Guest';
-	};
 	$rootScope.getAvatar = function(index) {
 		$rootScope.user_avatar = images[index];
 	};
 });
+
+
 
 app.config(function($routeProvider){
   $routeProvider
     //the timeline display
     .when('/', {
       templateUrl: '/main.html',
-      controller: 'postsController'
+      controller: 'authController'
     })
     //the timeline display
     .when('/edit', {
@@ -62,7 +51,17 @@ app.config(function($routeProvider){
 
 
 
-
+app.controller('navController', function($scope) {
+  	$scope.page = "index";
+	
+	$scope.selectedPage = function(currentPage) {
+		$scope.page = currentPage;
+	};
+	
+	$scope.isSelected = function(currentPage) {
+		return $scope.page === currentPage;
+	};
+});
 
 
 

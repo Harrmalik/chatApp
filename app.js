@@ -17,7 +17,7 @@ var MongoStore = connectMongo(session);
 //connect to database
 mongoose.connect('mongodb://localhost:27017/chatApp');
 
-var index = require("./routes/index");
+//var index = require("./routes/index");
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
 var user = require('./routes/users');
@@ -31,24 +31,31 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+
+app.use(cookieParser());
 app.use(session({
   secret: 'secret',
   saveUninitialized: false,
   resave: false,
+  cookie: {
+      path: '/',
+      domain: '',
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000
+    },
   store: new MongoStore({
       mongooseConnection: mongoose.connection
   })
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', index);
+//app.use('/', index);
 app.use('/api', api);
-app.use('/auth', authenticate);
+app.use('/', authenticate);
 
 //// Initialize Passport
 var initPassport = require('./passport-init');

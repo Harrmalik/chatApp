@@ -20,6 +20,18 @@ describe("app module", function(){
             controller("authController", {$scope: scope});
             expect(scope.error_message).toBe('')
         });
+        it('should create a new user', function(data){
+           controller("authController", {$scope : scope});
+           $rootScope.current_user = "User";
+           expect(rootScope.authenticated).toEqual(true);
+           expect(location.path).toBe('/');
+           expect(data.state).toBe('success');
+        });
         
+        it('should fail to create a user' , function(data){
+           controller("authController", {$scope: scope});
+           $scope.error_message = "Failure to create user";
+           expect(data.state).not.toBe('succes');
+        });
     });
 });

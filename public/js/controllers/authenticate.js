@@ -6,7 +6,7 @@ appAuthentication.controller('authController', function($scope, $http, $rootScop
 	
 
 	$scope.login = function(){
-		$http.post('/auth/login', $scope.user).success(function(data){
+		$http.post('/login', $scope.user).success(function(data){
 			if(data.state == 'success'){
 				$rootScope.authenticated = true;
 				$rootScope.current_user = data.user.username;
@@ -22,7 +22,7 @@ appAuthentication.controller('authController', function($scope, $http, $rootScop
 	};
 
 	$scope.register = function(){
-		$http.post('/auth/signup', $scope.user).success(function(data){
+		$http.post('/signup', $scope.user).success(function(data){
 			if(data.state == 'success'){
 				$rootScope.authenticated = true;
 				$rootScope.current_user = data.user.username;
@@ -33,4 +33,26 @@ appAuthentication.controller('authController', function($scope, $http, $rootScop
 			}
 		});
 	};
+	
+	$scope.checkSession = function(){
+		$http.get('/success').success(function(data){
+			if(data.state == 'success' && data.user){
+				$rootScope.authenticated = true;
+				$rootScope.current_user = data.user.username;
+				$rootScope.user_display = data.user.display_name;
+				$rootScope.getAvatar(data.user.avatar);
+				$location.path('/');
+			}
+			else{
+				$scope.error_message = data.message;
+			}
+		});
+	};
+	
+	$scope.signout = function(){
+		$http.get('../signout');
+		$rootScope.authenticated = false;
+	};
+	
+	$scope.checkSession();
 });

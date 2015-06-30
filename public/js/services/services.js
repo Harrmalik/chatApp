@@ -20,3 +20,8 @@ appServices.factory('followFactory',['$resource', function($resource){
         'update': { method:'put' }
     });
 }]);
+
+appServices.factory('followingService', function(){
+    var check = 0;
+    return check;
+});
