@@ -2,11 +2,14 @@
 <html ng-app="chatApp">
 	<head>
     <title>Cartoon Chat App</title>
+    <!--                            SCRIPT FILES                                                         -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.3/semantic.min.js"></script>
+    
+    <!--                            CSS FILES                                                         -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.3/semantic.min.css">
     <link rel="stylesheet" href="css/style.css">
 	</head>
@@ -14,13 +17,13 @@
 		<div id='main'>
 			 <header class="ui sixteen wide column" ng-controller="navController as NavCtrl">
 			   <nav class="ui secondary pointing menu blue floating" ng-controller="authController">
-          <a class="item" ng-class="{ active : isSelected('index')}" href="#" ng-click="NavCtrl.selectedPage('index')">
+          <a class="item" href="#" ng-class="{ active : isSelected('index')}" ng-click="selectedPage('index')">
             <i class="home icon"></i> Home
           </a>
-          <a class="item" ng-class="{ active : isSelected('inbox')}" href ng-click="selectedPage('inbox')">
-            <i class="mail icon"></i> Messages
+          <a class="item" href="#/inbox" ng-class="{ active : isSelected('inbox')}" ng-click="selectedPage('inbox')">
+            <i class="mail icon"></i> Inbox
           </a>
-          <a class="item" ng-class="{ active : isSelected('friends')}" href ng-click="selectedPage('friends')">
+          <a class="item" href="#/friends" ng-class="{ active : isSelected('friends')}" href ng-click="selectedPage('friends')">
             <i class="user icon"></i> Friends
           </a>
           
@@ -37,9 +40,6 @@
             <a class="item" href="#/settings" ng-show="authenticated" ng-class="{ active : isSelected('settings')}" ng-click="selectedPage('settings')">
               <i class="user icon"></i> Settings
             </a>
-            <a class="item" href="#" ng-show="authenticated">
-              <i class="user icon"></i> Signed in as {{current_user}}
-            </a>
           </nav>
         </nav>
       </header>
@@ -47,9 +47,10 @@
 			<section ng-view class="ui grid" ng-controller="postsController">
 			</section>
 		</div>
-		
+		<!--                            SCRIPT FILES                                                         -->
     <script src="js/main.js"></script>
     
+    <!--                            CONTROLLERS                                                         -->
     <script src="js/chatApp.js"></script>
     <script src="js/services/services.js"></script>
     <script src="js/controllers/authenticate.js"></script>

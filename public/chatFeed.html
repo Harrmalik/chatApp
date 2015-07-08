@@ -1,4 +1,4 @@
-<article ng-controller="postsController as postCtrl" id="post-stream">
+<article id="post-stream">
     <h3 class="ui blue header"><i class="ui chat icon"></i>Chat Feed</h3>
       <div class="ui divider"></div>
       <div class="ui feed" ng-repeat="post in posts | filter:search | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
@@ -8,7 +8,7 @@
           </div>
           <div class="content" ng-if="selected.Post !== post">
             <div class="summary">
-              <a class="user">
+              <a class="user" ng-click="friendPage(post.created_by)">
                 {{post.created_by}}
               </a> {{post.text}}
               <div class="date">
@@ -19,7 +19,7 @@
               <a class="like" ng-click="addLike(post)">
                 <i class="like icon"></i> {{post.likes}}
               </a>
-              <a ng-click="followUser(current_user, post)" ng-if="current_user !== post.created_by">
+              <a ng-click="followUser(current_user, post)" ng-if="checkFollows(post.created_by)">
                 <i class="user icon"></i> Follow {{post.created_by}}
               </a>
             </div>
@@ -43,13 +43,13 @@
         </div>
         <div class="event" ng-if="current_user == post.created_by">
           <div class="summary">
-            <div class="ui primary button" ng-if="selected.Post !== post" ng-click="edit(post)">
+            <div class="ui primary mini button" ng-if="selected.Post !== post" ng-click="edit(post)">
               Edit
             </div>
-            <div class="ui green button" ng-if="selected.Post == post" ng-click="save(selected.Post)">
+            <div class="ui green mini button" ng-if="selected.Post == post" ng-click="save(selected.Post)">
               Save
             </div>
-            <div class="ui red button" ng-click="delete(post)">
+            <div class="ui red mini button" ng-click="delete(post)">
               Delete
             </div>
           </div>

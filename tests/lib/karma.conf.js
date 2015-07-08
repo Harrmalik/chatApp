@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../lib/jasmine/bin/jasmine.js',
+      '/home/ubuntu/.nvm/v0.10.35/lib/node_modules/jasmine/bin/jasmine.js',
       '../lib/karma-jasmine/lib/adapter.js',
       '../angular/angular.js',
       '../lib/angular-mocks/angular-mocks.js',

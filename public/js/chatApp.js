@@ -1,28 +1,25 @@
 var app = angular.module('chatApp', ['ngRoute', 'appSettings', 'appServices', 'appAuthentication', 'appPosts']).run(function($rootScope, $http){
-	//$rootScope.authenticated = false;
-	//$rootScope.current_user = 'Guest';
-	$rootScope.user_display = $rootScope.current_user;
-	$rootScope.user_avatar = 1;
-  $rootScope.check = 0;
-
-	$rootScope.getAvatar = function(index) {
-		$rootScope.user_avatar = images[index];
-	};
+  
+	$rootScope.images = ['/images/finn.png', '/images/cartman.jpeg', '/images/stewie.png', '/images/shaggy.jpg', '/images/sponge.jpeg', '/images/rnm.png'];
 });
-
 
 
 app.config(function($routeProvider){
   $routeProvider
     //the timeline display
     .when('/', {
-      templateUrl: '/main.html',
+      templateUrl: '/feed.html',
       controller: 'authController'
     })
     //the timeline display
-    .when('/edit', {
-      templateUrl: '/edit.html',
-      controller: 'postsController'
+    .when('/user', {
+      templateUrl: '/feed.html',
+      controller: 'authController'
+    })
+    //the timeline display
+    .when('/inbox', {
+      templateUrl: '/inbox.html'
+      // controller: 'postsController'
     })
     //the login display
     .when('/login', {

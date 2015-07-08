@@ -45,3 +45,12 @@ section {
 	width: 100%;
 	
 }
+
+.selectedBorder {
+	border: solid blue;
+}
+
+#livesearch{
+	border: 1px solid #000;
+	background-color: #fff;
+}

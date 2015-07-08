@@ -7,6 +7,13 @@ appServices.factory('postFactory',['$resource', function($resource){
     });
 }]);
 
+appServices.factory('userPostFactory',['$resource', function($resource){
+	return $resource('api/userPosts/:name', null,  
+		{
+        'update': { method:'put' }
+    });
+}]);
+
 appServices.factory('userFactory',['$resource', function($resource){
 	return $resource('/api/users/:name', null,  
 		{
@@ -20,8 +27,3 @@ appServices.factory('followFactory',['$resource', function($resource){
         'update': { method:'put' }
     });
 }]);
-
-appServices.factory('followingService', function(){
-    var check = 0;
-    return check;
-});

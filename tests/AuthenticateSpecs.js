@@ -33,5 +33,12 @@ describe("app module", function(){
            $scope.error_message = "Failure to create user";
            expect(data.state).not.toBe('succes');
         });
+        
+        it('should get the signout page', function(){
+            controller("authController", {$scope: scope});
+            $httpBackend.whenGET("../signout").respond(500);
+            $rootScope.current_user = "";
+            expect(rootScope.authenticated).toEqual(true);
+        });
     });
 });

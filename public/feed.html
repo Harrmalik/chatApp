@@ -1,0 +1,52 @@
+<!--main.html-->
+<article class="four wide column">
+  <div ng-show="authenticated">
+
+    <user-info-box></user-info-box>
+
+
+    <form class="ui form fluid segment stacked blue" ng-Submit="post()">
+      <div class="required field">
+        <div class="ui icon input">
+          <h4>{{current_user}} says </h4>
+        </div>
+      </div>
+      <div class="field">
+                  <div class="ui icon input">
+          <input required type="text" placeholder="Whats on your mind?" ng-model="newPost.text" />
+          <i class="chat icon"></i>
+        </div>
+      </div>
+      <input class="ui button blue" type="submit" value="Send" id="send" />
+    </form>
+    <div class="ui inverted red button" ng-show='authenticated' ng-click="deleteUser(current_user)">Delete Account</div>
+  </div>
+</article>
+
+<div class="eight wide column">
+  <article>
+
+  </article>
+  
+  <chat-feed></chat-feed>
+</div>
+
+<article class="four wide column">
+  <div class="item">
+    <div class="ui icon input">
+      <input type="text" placeholder="Find a message" ng-model="search">
+      <i class="search link icon"></i>
+    </div>
+  </div>
+  <div class="item">
+    <div class="ui icon input">
+      <input type="text" placeholder="Find a user" ng-model="searchUser">
+      <i class="search link icon"></i>
+    </div>
+    <div ng-show="searchUser" id="livesearch">
+      <div ng-repeat="user in users | filter:searchUser">
+        <a class="user" ng-click="friendPage(user.username)"><img ng-src="{{user.avatar}}" class="ui avatar circular image">{{user.username}}</a>
+      </div>
+    </div>
+  </div>
+</article>

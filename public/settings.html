@@ -1,14 +1,18 @@
-<nav class="ui vertical pointing menu four wide column">
-  <a class="item" ng-class="{ active : isSelected('personal')}" ng-click="selectTab('personal')">
-    <i class="home icon"></i> Personal
-  </a>
-  <a class="item" ng-class="{ active : isSelected('account')}" ng-click="selectTab('account')">
-    <i class="mail icon"></i> Account 
-  </a>
-  <a class="item" ng-class="{ active : isSelected('privacy')}" ng-click="selectTab('privacy')">
-    <i class="user icon"></i> Privacy
-  </a>
-</nav>
+<article class="four wide column">
+  <user-info-box></user-info-box>
+  
+  <nav class="ui vertical pointing menu four wide column">
+    <a class="item" ng-class="{ active : isSelected('personal')}" ng-click="selectTab('personal')">
+      <i class="home icon"></i> Personal
+    </a>
+    <a class="item" ng-class="{ active : isSelected('account')}" ng-click="selectTab('account')">
+      <i class="mail icon"></i> Account 
+    </a>
+    <a class="item" ng-class="{ active : isSelected('privacy')}" ng-click="selectTab('privacy')">
+      <i class="user icon"></i> Privacy
+    </a>
+  </nav>
+</article>
 
 <article class="eight wide column">
   <article ng-show="isSelected('personal')">
@@ -33,15 +37,15 @@
         
         <h5>Choose a avatar...</h5>
         <div class="ui tiny images">
-          <a href ng-click="selectImg(0)"><img class="ui image" src="/images/finn.png" ></a>
-          <a href ng-click="selectImg(1)"><img class="ui image" src="/images/cartman.jpeg"></a>
-          <a href ng-click="selectImg(2)"><img class="ui image" src="/images/stewie.png"></a>
-          <a href ng-click="selectImg(3)"><img class="ui image" src="/images/shaggy.jpg"></a>
-          <a href ng-click="selectImg(4)"><img class="ui image" src="/images/sponge.jpeg"></a>
-          <a href ng-click="selectImg(5)"><img class="ui image" src="/images/rnm.png"></a>
+          <a href ng-click="selectImg(0)"><img ng-class="{ selectedBorder : imgSelected(0) }" class="ui image" src="/images/finn.png" ></a>
+          <a href ng-click="selectImg(1)"><img ng-class="{ selectedBorder : imgSelected(1) }" class="ui image" src="/images/cartman.jpeg"></a>
+          <a href ng-click="selectImg(2)"><img ng-class="{ selectedBorder : imgSelected(2) }" class="ui image" src="/images/stewie.png"></a>
+          <a href ng-click="selectImg(3)"><img ng-class="{ selectedBorder : imgSelected(3) }" class="ui image" src="/images/shaggy.jpg"></a>
+          <a href ng-click="selectImg(4)"><img ng-class="{ selectedBorder : imgSelected(4) }" class="ui image" src="/images/sponge.jpeg"></a>
+          <a href ng-click="selectImg(5)"><img ng-class="{ selectedBorder : imgSelected(5) }" class="ui image" src="/images/rnm.png"></a>
         </div>
-        <div class="field hidden">
-          <input type="text" name="userAvatar" ng-model="avatar">
+        <div class="ui tiny images" ng-repeat="image in images">
+          hey
         </div>
         <input class="ui button blue" type="submit" value="Send" id="send" />
      </form>
@@ -82,6 +86,6 @@
   </article>
   
   <article ng-show="isSelected('privacy')">
-    
+    <h3 class="ui header">Will add content here soon</h3>
   </article>
 </article>

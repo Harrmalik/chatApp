@@ -1,1 +1,1 @@
-mongod --nojournal --dbpath=data/db1
+mongod --nojournal --dbpath=data/db2

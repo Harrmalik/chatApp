@@ -61,7 +61,7 @@ router.route('/posts')
 router.route('/posts/:id')
 	//gets specified post
 	.get(function(req, res){
-		console.log(req.params.id);
+		console.log("not this one...");
 		Post.find({created_by: req.params.id}).limit(10).sort({created_at: -1}).exec(function(err, post){
 			if(err)
 				return res.send(err);
@@ -98,15 +98,29 @@ router.route('/posts/:id')
 		});
 	});
 	
-router.route('/users')
+router.route('/userPosts/:name')
 	.get(function(req, res){
-		User.find(function(err, user){
+		var name = req.params.name;
+		Post.count({created_by: name},function(err, num){
+			if(err){
+				return res.status(500).send(err);
+			}
+			console.log("Malik look " + num);
+			//Need better way then returning all the posts!
+			res.json(num);
+		});
+	});
+	
+router.route('/users')
+	// gets all users and avatars for user search
+	.get(function(req, res){
+		User.find({}, {"username": 1, "avatar": 1, "_id": 0}, function(err, users){
 			if(err){
 				return res.status(500).send(err);
 			}
 			
-			user.password = "";
-			return res.status(200).send(user);
+			
+			return res.json(users);
 		});
 	});
 	
@@ -125,11 +139,15 @@ router.route('/users/:name')
 	.put(function(req, res){
 		User.findOneAndUpdate({
 			username: req.params.name
-		},{display_name: req.body.display_name, avatar: req.body.avatar
-		}, {new: true},function(err, user){
+		},{
+			$set: {display_name: req.body.display_name, avatar: req.body.avatar}
+		}, {
+			new: true
+			
+		}, function(err, user){
 			if (err)
 				return res.send(err);
-			
+			console.log(user);
 				res.json(user);
 			});
 	})
@@ -154,20 +172,14 @@ router.route('/users/:name')
 	
 router.route('/follow/:name')
 	.get(function(req, res){
-		User.find({username: req.params.name}, {"follows": 1, "followers": 1, "_id": 0}, function(err, data){
+		User.find({username: req.params.name}, {"created_at": 0, "password": 0, "_id": 0}, function(err, data){
 			if(err) return res.send(err);
-			console.log("yooooo");
-			console.log(data);
 			res.json(data);
 		});
 	})
 
 	//current_user follows a new user
 	.put(function(req, res){
-		console.log("I'm being hit!!!!!!");
-		console.log(req.params.name);
-		console.log(req.body.created_by);
-		
 		User.findOneAndUpdate({
 			username: req.params.name
 		},{
@@ -182,9 +194,6 @@ router.route('/follow/:name')
 			}
 			//res.json("Following");
 		});
-		
-		console.log(req.body.created_by);
-		console.log(req.params.name);
 		
 		User.findOneAndUpdate({
 			username: req.body.created_by
