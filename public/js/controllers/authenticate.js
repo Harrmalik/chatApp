@@ -42,13 +42,13 @@ appAuthentication.controller('authController', function($scope, $http, $rootScop
 		$http.get('/success').success(function(data){
 			if(data.state == 'success' && data.user){
 				$rootScope.authenticated = true;
+				$scope.userId = data.user._id;
 				$rootScope.current_user = data.user.username;
 				$rootScope.user_display = data.user.display_name;
 				//Creates array of everyone the logged in user follows including their self
 				followArray = data.user.follows;
 				followArray.push($rootScope.current_user);
 				$rootScope.current_user_Follows = followArray;
-				console.log($rootScope.current_user_Follows);
 				$location.path('/');
 			}
 			else{
@@ -61,6 +61,8 @@ appAuthentication.controller('authController', function($scope, $http, $rootScop
 		$http.get('../signout');
 		$rootScope.authenticated = false;
 		$rootScope.current_user = "";
+		$location.path('/');
+		
 	};
 	
 	$scope.checkSession();

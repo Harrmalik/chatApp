@@ -28,7 +28,6 @@ router.use('/posts', isAuthenticated);
 router.route('/posts')
 	//creates a new post
 	.post(function(req, res){
-
 		var post = new Post();
 		post.text = req.body.text;
 		post.created_by = req.body.created_by;
@@ -59,42 +58,49 @@ router.route('/posts')
 
 //post-specific commands. likely won't be used
 router.route('/posts/:id')
-	//gets specified post
+	//gets top ten most recent posts from a specific user
 	.get(function(req, res){
-		console.log("not this one...");
-		Post.find({created_by: req.params.id}).limit(10).sort({created_at: -1}).exec(function(err, post){
+		User.find({username: req.params.id}, {posts: {$slice: -10}}, function(err, post){
 			if(err)
 				return res.send(err);
 			
+			post[0].password = "";
 			res.json(post);
 		});
-	}) 
-	//updates specified post
-	.put(function(req, res){
-		Post.findById(req.params.id, function(err, post){
-			if(err)
+	})
+	//creates a new post
+	.post(function(req, res){
+		req.body.likes = 0;
+		console.log(req.body);
+		User.findOneAndUpdate({
+			username: req.params.id
+		},{
+			$push: {posts: req.body}
+		},{
+			upsert: true
+		},
+		function(err){
+			if(err){
 				return res.send(err);
-
-			post.created_by = req.body.created_by;
-			post.text = req.body.text;
-			post.likes = req.body.likes;
-
-			post.save(function(err, post){
-				if(err)
-					return res.send(err);
-
-				res.json(post);
-			});
+			}
+			res.json("Created post!");
 		});
 	})
-	//deletes the post
-	.delete(function(req, res) {
-		Post.remove({
-			_id: req.params.id
-		}, function(err) {
-			if (err)
-				return res.send(err);
-			res.json("deleted :(");
+	//updates specified post
+	.put(function(req, res){
+		User.update({
+			"posts._id": req.params.id
+		},{
+			$set: {
+				"posts.$.text": req.body.text,
+				"posts.$.likes": req.body.likes
+			}
+		},
+			function(err, numAffected){
+				if(err)
+					return res.send(err);
+	
+				res.json(numAffected);
 		});
 	});
 	
@@ -108,6 +114,16 @@ router.route('/userPosts/:name')
 			console.log("Malik look " + num);
 			//Need better way then returning all the posts!
 			res.json(num);
+		});
+	})
+	//deletes specified post
+	.put(function(req, res) {
+		User.update({
+			"_id": req.params.name
+		}, {$pull: {"posts": {"_id": req.body._id}}}, function(err) {
+			if (err)
+				return res.send(err);
+			res.json("deleted :(");
 		});
 	});
 	
@@ -159,15 +175,15 @@ router.route('/users/:name')
 		}, function(err) {
 			if (err)
 				return res.send(err);
-			//res.json("destroyed that file");
+			res.json("destroyed that file");
 		});
-		Post.remove({
-			created_by: req.params.name
-		}, function(err) {
-			if (err)
-				return res.send(err);
-			res.json("deleted :(");
-		});
+		// Post.remove({
+		// 	created_by: req.params.name
+		// }, function(err) {
+		// 	if (err)
+		// 		return res.send(err);
+		// 	res.json("deleted :(");
+		// });
 	});
 	
 router.route('/follow/:name')
@@ -185,7 +201,6 @@ router.route('/follow/:name')
 		},{
 			$push: {follows: req.body.created_by}
 		},{
-			
 			upsert: true
 		},
 		function(err){
@@ -210,5 +225,31 @@ router.route('/follow/:name')
 		});
 	});
 
+router.route("/unfollow/:id")
+	//Unfollows selected user
+	.put(function(req, res) {
+		User.update({
+			"_id": req.params.id
+		}, {
+			$pull: {
+				"follows": req.body.created_by
+			}
+		}, function(err) {
+			if (err)
+				return res.send(err);
+		});
+		
+		User.update({
+			"_id": req.body.created_by
+		}, {
+			$pull: {
+				"followers": req.params.id
+			}
+		}, function(err) {
+			if (err)
+				return res.send(err);
+			res.json("Unfollow that fool!");
+		});
+	});
 
 module.exports = router;

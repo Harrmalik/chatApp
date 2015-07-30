@@ -1,0 +1,49 @@
+{
+  "show": "Adventure Time",
+  "network": "Cartoon Network",
+  "images": {
+      "icon" : {  
+          "url" : "images/finn.png",
+          "alt" : "finn avatar"
+      },
+      "header" : {  
+          "url" : "images/adventureTimeHeader.jpg",
+          "alt" : "finn avatar"
+      },
+      "background" : {  
+          "url" : "images/adventureTimeBackground.png",
+          "alt" : "finn avatar"
+      },
+      "home" : {  
+          "url" : "images/adventureTime.png",
+          "alt" : "finn avatar"
+      }
+  },
+  "bio": {
+      "p1": "A human boy named Finn and adoptive brother and best friend Jake the Dog, protect the citizens of the Land of Ooo from foes of various shapes and sizes.",
+      "p2": "somemore wwqrver"
+  },
+  "posts" : [
+    {
+      "username" : "adventure time fan 1",
+      "display_name" : "ilovefinn",
+      "text" : "Finn is the best cartoon character ever said everyone!",
+      "created_at" : "April 4th",
+      "likes" : 5
+    },
+    {
+      "username" : "adventure time fan 2",
+      "display_name" : "ilovefinn",
+      "text" : "Finn is the best cartoon character ever said everyone!",
+      "created_at" : "April 4th",
+      "likes" : 5
+    },
+    {
+      "username" : "adventure time fan 3",
+      "display_name" : "ilovefinn",
+      "text" : "Finn is the best cartoon character ever said everyone!",
+      "created_at" : "April 4th",
+      "likes" : 5
+    }
+    ]
+}

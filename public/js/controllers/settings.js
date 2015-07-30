@@ -3,7 +3,12 @@ var appSettings = angular.module("appSettings", ['appServices']);
 appSettings.controller('settingsController', [ 'userFactory', '$scope', '$rootScope', '$route',
     function(userFactory, $scope, $rootScope, $route) {
 	$scope.tab = "personal";
-	$scope.user = userFactory.query();
+	
+	userFactory.query({name: $rootScope.current_user},function(data){
+		$scope.user = data[0];
+		console.log($scope.user);
+	});
+	console.log($scope.user);
 	// for the time being im storing this variable here...
 	$scope.whoEver = $rootScope.current_user;
 	
@@ -24,18 +29,35 @@ appSettings.controller('settingsController', [ 'userFactory', '$scope', '$rootSc
 	};
 	
 	$scope.update = function(display, img) {
-	    if (!display)
+		var check;
+	    if (!display) {
 	        display = $rootScope.user_display;
+	    }
 	        
-
-	        console.log('img' + img);
-	        console.log('img' + $rootScope.user_avatar);
-	        console.log('display' + display);
-	        console.log('display' + $rootScope.user_display);
-	        
-		userFactory.update(
+		if(!img)
+		img = $scope.user.avatar;
+		
+		console.log($scope.user.avatar);
+		
+    	userFactory.update(
 		    {name: $rootScope.current_user}, {display_name: display, avatar: img}
 		);
+
+		// switch (check) {
+		// 	case 'img':
+		// 		userFactory.update(
+		// 		    {name: $rootScope.current_user}, {avatar: img}
+		// 		);
+		// 		break;
+		// 	case 'display':
+		// 		userFactory.update(
+		// 		    {name: $rootScope.current_user}, {display_name: display}
+		// 		);
+		// 		break;
+			
+		// 	default:
+
+		// }
 		$rootScope.user_avatar = images[img];
 		$rootScope.user_display = display;
 		$route.reload();

@@ -1,6 +1,6 @@
 var appPosts = angular.module('appPosts', ['appServices']);
 
-appPosts.controller('postsController',['$scope', '$rootScope', 'postFactory', 'userFactory', 'followFactory', '$location', '$routeParams', function($scope, $rootScope, postFactory, userFactory, followFactory, $location, $routeParams){
+appPosts.controller('postsController',['$scope', '$rootScope', 'postFactory', 'userFactory', 'followFactory', 'userPostFactory', 'unfollowFactory', '$location', '$routeParams', function($scope, $rootScope, postFactory, userFactory, followFactory, userPostFactory, unfollowFactory, $location, $routeParams){
 	
 	$scope.paramName = $routeParams.param1;
 	// $scope.posts = postFactory.query();
@@ -11,6 +11,7 @@ appPosts.controller('postsController',['$scope', '$rootScope', 'postFactory', 'u
 	$scope.following = 0;
 	$scope.followers = 0;
 	$scope.users = userFactory.query();
+	console.log("check 0" + $scope.users);
 	$scope.newPost = {created_by: '', text: '', created_at: ''};
 	
 	// First get a note currentPostect from the factory
@@ -22,21 +23,25 @@ appPosts.controller('postsController',['$scope', '$rootScope', 'postFactory', 'u
 	});
 */
 	$scope.post = function() {
-		$scope.newPost.created_by = $rootScope.current_user;
+		// $scope.newPost.created_by = $rootScope.current_user;
 		$scope.newPost.created_at = Date.now();
-		postFactory.save($scope.newPost, function(){
+		// postFactory.save($scope.newPost, function(){
+		postFactory.save({id: $rootScope.current_user}, $scope.newPost, function(){
 			$scope.newPost = {created_by: '', text: '', created_at: ''};
 			$scope.getUserInfo($scope.whoEver);
 		});
 	};
 	
-	$scope.delete = function(post)	{
-		postFactory.delete({id: post._id});
+	$scope.delete = function(id, post)	{
+		console.log(id);
+		console.log(post);
+		userPostFactory.update({name: id}, post);
 		$scope.getUserInfo($scope.whoEver);
 	};
 	
 	$scope.edit = function(post) {
 		$scope.selected.Post = post;
+		console.log(post);
 	};
 	
 	$scope.save = function(post) {
@@ -58,6 +63,12 @@ appPosts.controller('postsController',['$scope', '$rootScope', 'postFactory', 'u
 	
 	$scope.followUser = function(name, post)	{
 		followFactory.update({name: name}, post);
+		$scope.getUserInfo($scope.whoEver);
+	};
+	
+	$scope.unfollowUser = function(id, post){
+		unfollowFactory.update({id: id}, post);
+		$scope.getUserInfo($scope.whoEver);
 	};
 	
 	$scope.getUserInfo = function(name){
@@ -72,9 +83,11 @@ appPosts.controller('postsController',['$scope', '$rootScope', 'postFactory', 'u
 			// 	console.log($rootScope.current_user_Follows);
 			// }
 			for(var n = 0; n < data[0].follows.length; n++){
-				postFactory.query({id: data[0].follows[n]}, function(data){
-					for(var i = 0; i < data.length; i++){
-						$scope.posts.push(data[i]);
+				postFactory.query({id: data[0].follows[n]}, function(postsData){
+					console.log(postsData[0]);
+					for(var i = 0; i < postsData[0].posts.length; i++){
+						postsData[0].posts[i].created_by = postsData[0].username;
+						$scope.posts.push(postsData[0].posts[i]);
 					}
 				});
 			}
@@ -86,7 +99,6 @@ appPosts.controller('postsController',['$scope', '$rootScope', 'postFactory', 'u
 		$scope.getUserInfo($rootScope.current_user);
 		$scope.whoEver = $rootScope.current_user;
 	} else{
-		console.log($scope.paramName);
 		$scope.getUserInfo($scope.paramName);
 		$scope.whoEver = $scope.paramName;
 	}
@@ -94,15 +106,15 @@ appPosts.controller('postsController',['$scope', '$rootScope', 'postFactory', 'u
 	$scope.friendPage = function(name){
 		if(name === $rootScope.current_user){
 			$location.path('/');
-			console.log(name);
-			console.log($rootScope.current_user);
 		}
 		$location.path('/user').search({param1: name});
 	};
 	
 	$scope.checkFollows = function(name){
 		var checkedOut = true;
+		console.log($rootScope.current_user_Follows);
 		for(var i = 0; i < $rootScope.current_user_Follows.length; i++){
+			//If current user doesn't follow name then checked out equals true
 			if(name == $rootScope.current_user_Follows[i]){
 				checkedOut = false;
 			}
@@ -111,30 +123,85 @@ appPosts.controller('postsController',['$scope', '$rootScope', 'postFactory', 'u
 	};
 	
 	$scope.getUserAvatar = function(user){
-		//$scope.users = userFactory.query({name: user});
-		//console.log($scope.users.resource);
-		//console.log('hey');
-	};
-	
-	$scope.getusers = function(){
 		userFactory.query({},function(data){
 			for(var i = 0; i< data.length; i++){
 				data[i].avatar = images[data[i].avatar];
 			}
 			$scope.users = data;
 		});
-		
-		console.log($scope.users);
-		
 	};
+	$scope.getUserAvatar();
+	
+	$scope.getusers = function(name){
+		userFactory.query({name: name},function(data){
+			for(var i = 0; i< data.length; i++){
+				data[i].avatar = images[data[i].avatar];
+			}
+			$scope.users = data;
+		});
+	};
+	//$scope.getusers();
+	
+var
+  content = [
+    {
+      title: 'Horse',
+      description: 'An Animal',
+    },
+    {
+      title: 'Cow',
+      description: 'Another Animal',
+    },
+    	  { title: 'Andorra' },
+	  { title: 'United Arab Emirates' },
+	  { title: 'Afghanistan' },
+	  { title: 'Antigua' },
+	  { title: 'Anguilla' },
+	  { title: 'Albania' },
+	  { title: 'Armenia' },
+	  { title: 'Netherlands Antilles' },
+	  { title: 'Angola' },
+	  { title: 'Argentina' },
+	  { title: 'American Samoa' },
+	  { title: 'Austria' },
+	  { title: 'Australia' },
+	  { title: 'Aruba' },
+	  { title: 'Aland Islands' },
+	  { title: 'Azerbaijan' },
+	  { title: 'Bosnia' },
+	  { title: 'Barbados' },
+	  { title: 'Bangladesh' },
+	  { title: 'Belgium' },
+	  { title: 'Burkina Faso' },
+	  { title: 'Bulgaria' },
+	  { title: 'Bahrain' },
+	  { title: 'Burundi' }
+  ]
+;
+	
+	$('.ui.search.icon.input')
+	  .search({
+	    source : $scope.users, 
+	    searchFields   : [
+	      'username'
+	    ],
+	    searchFullText: false
+	  })
+	;
+	console.log("check 1" + $scope.users);
 	$scope.getusers();
+	console.log("check 2" + $scope.users);
+	
+	var textBoxChange = function(){
+		console.log("i'm being focused");
+	}
+	
 }]);
 
 appPosts.controller('userInfoController',['$scope', '$rootScope', 'userPostFactory', 'followFactory', '$routeParams', 
 		function($scope, $rootScope, userPostFactory, followFactory, $routeParams){
     
     $scope.paramName = $routeParams.param1;
-    console.log($scope.paramName);
 	$scope.getUserBox = function(name){
 		followFactory.query({name: name}, function(data){
 			$scope.username = data[0].username;
@@ -164,7 +231,7 @@ appPosts.controller('userInfoController',['$scope', '$rootScope', 'userPostFacto
 appPosts.directive('userInfoBox', function(){
 	return {
 		restrict: 'E',
-		templateUrl: 'userInfoBox.html',
+		templateUrl: '/directives/userInfoBox.html',
 		controller: 'userInfoController',
 		controllerAs: 'userInCtrl'
 	};
@@ -173,8 +240,8 @@ appPosts.directive('userInfoBox', function(){
 appPosts.directive('chatFeed', function(){
 	return {
 		restrict: 'E',
-		templateUrl: 'chatFeed.html',
+		templateUrl: '/directives/chatFeed.html',
 		controller: 'postsController',
-		controllerAs: 'postCtrl'
+		controllerAs: 'postCtrl',
 	};
 });

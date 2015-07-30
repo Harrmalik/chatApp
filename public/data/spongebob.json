@@ -1,0 +1,37 @@
+{
+  "show": "Spongebob Squarepants",
+  "network": "Nickelodeon",
+  "images": {
+      "icon" : "img/phones/nexus-s.0.jpg",
+      "header" : "img/phones/nexus-s.1.jpg",
+      "background" : "img/phones/nexus-s.2.jpg",
+      "home" : "img/phones/nexus-s.3.jpg"
+  },
+  "bio": {
+      "p1": "wefwqev",
+      "p2": "somemore wwqrver"
+  },
+    "posts" : [
+    {
+      "username" : "spongebob fan 1",
+      "display_name" : "ilovepatrick",
+      "text" : "patrick is the best cartoon character ever said everyone!",
+      "created_at" : "April 4th",
+      "likes" : 5
+    },
+    {
+      "username" : "spongebob fan 2",
+      "display_name" : "ilovepatrick",
+      "text" : "patrick is the best cartoon character ever said everyone!",
+      "created_at" : "April 4th",
+      "likes" : 5
+    },
+    {
+      "username" : "spongebob fan 3",
+      "display_name" : "ilovepatrick",
+      "text" : "patrick is the best cartoon character ever said everyone!",
+      "created_at" : "April 4th",
+      "likes" : 5
+    }
+    ]
+}

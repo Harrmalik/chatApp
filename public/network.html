@@ -1,0 +1,46 @@
+<section id="splashPage" ng-hide="authenticated" class="ui grid">
+  <article class="six wide column">
+    <div class="ui segment stacked blue">
+        <h2 class="ui header">
+            {{network.network}} 
+            <div class="sub header"><a href="{{'#/' + network}}">{{network.network}}</a></div>
+        </h2>
+        
+        <img class="ui image small" ng-src="{{network.image.url}}" alt="{{network.image.alt}}">
+        {{network.shows.length}} Shows for this network
+    </div>  
+  </article>
+  
+  <article class="ten wide column">
+    <div class="ui cards" ng-repeat="show in network.shows">
+      <div class="{{'card fluid ' + show.color}}">
+        <div class="blurring dimmable image">
+          <div class="ui dimmer">
+            <div class="content">
+              <div class="center">
+                <div class="ui inverted button">View Page</div>
+              </div>
+            </div>
+          </div>
+          <a href="#"><img class="ui image" ng-src="{{show.image.url}}" alt="{{show.image.alt}}"></a>
+        </div>
+        <div class="content">
+          <a class="header" href="/#/cartoon-network/adventure-time">{{show.show}}</a>
+          <div class="meta">
+            <a class="header" href="/#/cartoon-network"><span class="date">Cartoon Network</span></a>
+          </div>
+        </div>
+        <div class="extra content">
+          <a>
+            <i class="users icon"></i>
+            {{show.members}}
+          </a>
+            <a>
+            <i class="like icon"></i>
+            {{show.likes}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>

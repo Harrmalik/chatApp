@@ -1,0 +1,145 @@
+<article class="sixteen wide column">
+    <img ng-src="{{show.images.header.url}}" alt="{{show.images.header.alt}}" width="1200">
+</article>
+
+<article class="four wide column">
+    <div class="ui segment stacked blue">
+        <h2 class="ui header">
+            {{show.show}}
+            <div class="sub header"><a href="{{'#/' + networkUri}}">{{show.network}}</a></div>
+        </h2>
+        
+        
+    <p>{{show.bio.p1}}</p>
+    <!--<img class="ui image" ng-src="{{show.images.home.url}}" alt="{{show.images.home.alt}}">-->
+    </div>
+    <h3 class="ui red header">{{show.show}} statistics</h3>
+    <p>possible options for this space</p>
+    <ul>
+        <li>nothing</li>
+        <li>statistics like how many follows, likes, etc</li>
+        <li>show summary like how many seasons, episodes etc</li>
+    </ul>
+<div class="ui four horizontal statistics">
+  <div class="statistic">
+    <div class="value">
+      <i class="users icon"></i> 5
+    </div>
+    <div class="label">
+      Members
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <i class="comments icon"></i> 5
+    </div>
+    <div class="label">
+      Posts
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <i class="plane icon"></i> 5
+    </div>
+  </div>
+</div>
+</article>
+
+<article class="eight wide column">
+    <h3 class="ui red header">post mentioning {{show.show}}</h3>
+        <h3 class="ui blue header"><i class="ui chat icon"></i>Chat Feed</h3>
+      <div class="ui divider"></div>
+      <div class="ui feed" ng-repeat="post in show.posts | filter:search | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
+        <div class="event">
+          <div class="label">
+            <a href ng-click="getUserAvatar(post.created_by)"><img ng-src="{{show.images.icon.url}}" class="ui avatar circular image"></a>
+          </div>
+          <div class="content" ng-if="selected.Post !== post">
+            <div class="summary">
+              <a class="user" ng-click="friendPage(post.created_by)">
+                {{post.username}} <span class="date">&#64;Display Name</span>
+                
+              </a> 
+              <div class="date">
+                {{post.created_at | date:"h:mma 'on' MMM d, y"}}
+              </div><br>{{post.text}}<br>
+            </div>
+            <div class="meta">
+              <a class="like" ng-click="addLike(post)">
+                <i class="like icon"></i> {{post.likes}}
+              </a>
+              <a ng-click="followUser(current_user, post)" ng-if="checkFollows(post.created_by)">
+                <i class="user icon"></i> Follow {{post.created_by}}
+              </a>
+            </div>
+          </div>
+          <div class="content" ng-if="selected.Post == post">
+            <div class="summary">
+              <a class="user">
+                {{selected.Post.created_by}}
+              </a>
+              <input type="text" ng-model="selected.Post.text" />
+              <div class="date">
+                {{selected.Post.created_at | date:"h:mma 'on' MMM d, y"}}
+              </div>
+            </div>
+            <div class="meta">
+              <a class="like">
+                <i class="like icon"></i> {{post.likes}}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+</article>
+
+  <article class="four wide column" ng-show="authenticated">
+    <div class="ui search">
+      <div class="ui icon input">
+        <input class="prompt" type="text" placeholder="Find a message or user" ng-model="search" ng-change="searchUser=search">
+        <i class="search icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
+    <div class="item">
+      <div class="hidden">
+        <input type="text" placeholder="Find a user" ng-model="searchUser">
+        <i class="search link icon"></i>
+      </div>
+      <div ng-show="searchUser" id="livesearch">
+        <div ng-repeat="user in users | filter:searchUser">
+          <a class="user" ng-click="friendPage(user.username)"><img ng-src="{{user.avatar}}" class="ui avatar circular image">{{user.username}}</a>
+        </div>
+      </div>
+    </div>
+  </article>
+  
+    <article class="four wide column" ng-controller="authController" ng-hide="authenticated">
+    <form class="ui form fluid segment piled blue" ng-submit="login()">
+      <h4 class="ui dividing header">Log in</h4>
+      <p class="text-warning">{{error_message}}</p>
+        <div class="required field">
+          <label>Username</label>
+          <div class="ui icon input">
+            <input type="text" focus-me ng-model="user.username" placeholder="Username">
+            <i class="user icon"></i>
+          </div>
+        </div>
+        <div class="required field">
+          <label>Password</label>
+          <div class="ui icon input">
+            <input type="password" ng-model="user.password" placeholder="Password">
+            <i class="lock icon"></i>
+          </div>
+        </div>
+      <div class="ui error message">
+        <div class="header">We noticed some issues</div>
+      </div>
+      <div class="ui buttons">
+        <input type="submit" value="Log in" class="ui button blue" />
+        <div class="or"></div>
+        <a href="#/register"><div class="ui positve button">register</div></a>
+      </div>
+      
+    </form>
+  </article>

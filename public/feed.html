@@ -1,52 +1,181 @@
-<!--main.html-->
-<article class="four wide column">
-  <div ng-show="authenticated">
 
-    <user-info-box></user-info-box>
-
-
-    <form class="ui form fluid segment stacked blue" ng-Submit="post()">
-      <div class="required field">
-        <div class="ui icon input">
-          <h4>{{current_user}} says </h4>
-        </div>
-      </div>
-      <div class="field">
-                  <div class="ui icon input">
-          <input required type="text" placeholder="Whats on your mind?" ng-model="newPost.text" />
-          <i class="chat icon"></i>
-        </div>
-      </div>
-      <input class="ui button blue" type="submit" value="Send" id="send" />
-    </form>
-    <div class="ui inverted red button" ng-show='authenticated' ng-click="deleteUser(current_user)">Delete Account</div>
-  </div>
-</article>
-
-<div class="eight wide column">
-  <article>
-
+  <article class="four wide column"  ng-show="authenticated">
+  
+    <div ng-show="authenticated">
+      
+      <user-info-box></user-info-box>
+      
+    </div>
   </article>
   
-  <chat-feed></chat-feed>
-</div>
-
-<article class="four wide column">
-  <div class="item">
-    <div class="ui icon input">
-      <input type="text" placeholder="Find a message" ng-model="search">
-      <i class="search link icon"></i>
-    </div>
+  <div class="eight wide column"  ng-show="authenticated">
+        <form class="ui form fluid segment stacked blue" ng-Submit="post()">
+          <div class="required field">
+            <div class="ui icon input">
+              <h4>{{current_user}} says </h4>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui icon input" ng-focus="textBoxChange()">
+              <input required type="text" placeholder="Whats on your mind?" ng-model="newPost.text" />
+              <i class="chat icon"></i>
+            </div>
+          </div>
+          <input class="ui button blue" type="submit" value="Send" id="send" />
+      </form>
+    <chat-feed ng-show="authenticated"></chat-feed>
   </div>
-  <div class="item">
-    <div class="ui icon input">
-      <input type="text" placeholder="Find a user" ng-model="searchUser">
-      <i class="search link icon"></i>
+  
+  <article class="four wide column" ng-show="authenticated">
+    <div class="ui search">
+      <div class="ui icon input">
+        <input class="prompt" type="text" placeholder="Find a message or user" ng-model="search" ng-change="searchUser=search">
+        <i class="search icon"></i>
+      </div>
+      <div class="results"></div>
     </div>
-    <div ng-show="searchUser" id="livesearch">
-      <div ng-repeat="user in users | filter:searchUser">
-        <a class="user" ng-click="friendPage(user.username)"><img ng-src="{{user.avatar}}" class="ui avatar circular image">{{user.username}}</a>
+    <div class="item">
+      <div class="hidden">
+        <input type="text" placeholder="Find a user" ng-model="searchUser">
+        <i class="search link icon"></i>
+      </div>
+      <div ng-show="searchUser" id="livesearch">
+        <div ng-repeat="user in users | filter:searchUser">
+          <a class="user" ng-click="friendPage(user.username)"><img ng-src="{{user.avatar}}" class="ui avatar circular image">{{user.username}}</a>
+        </div>
       </div>
     </div>
-  </div>
-</article>
+  </article>
+
+  <article class="six wide column" ng-controller="authController" ng-hide="authenticated">
+    <form class="ui form fluid segment piled blue" ng-submit="login()">
+      <h4 class="ui dividing header">Log in</h4>
+      <p class="text-warning">{{error_message}}</p>
+      <div class="two fields">
+        <div class="required field">
+          <label>Username</label>
+          <div class="ui icon input">
+            <input type="text" focus-me ng-model="user.username" placeholder="Username">
+            <i class="user icon"></i>
+          </div>
+        </div>
+        <div class="required field">
+          <label>Password</label>
+          <div class="ui icon input">
+            <input type="password" ng-model="user.password" placeholder="Password">
+            <i class="lock icon"></i>
+          </div>
+        </div>
+      </div>
+      <div class="ui error message">
+        <div class="header">We noticed some issues</div>
+      </div>
+      <div class="ui buttons">
+        <input type="submit" value="Log in" class="ui button blue" />
+        <div class="or"></div>
+        <a href="#/register"><div class="ui positve button">register</div></a>
+      </div>
+      
+    </form>
+  </article>
+  
+  <article class="ten wide column" ng-hide="authenticated">
+    <div class="ui special cards">
+      <div class="blue fluid card">
+        <div class="blurring dimmable image">
+          <div class="ui dimmer">
+            <div class="content">
+              <div class="center">
+                <div class="ui inverted button">View Page</div>
+              </div>
+            </div>
+          </div>
+          <img src="/images/adventureTime.png">
+        </div>
+        <div class="content">
+          <a class="header" href="/#/cartoon-network/adventure-time">Adventure Time</a>
+          <div class="meta">
+            <a class="header" href="/#/cartoon-network"><span class="date">Cartoon Network</span></a>
+          </div>
+        </div>
+        <div class="extra content">
+          <a>
+            <i class="users icon"></i>
+            1 Members
+          </a>
+        </div>
+      </div>
+      <div class="yellow fluid card">
+        <div class="blurring dimmable image">
+          <div class="ui inverted dimmer">
+            <div class="content">
+              <div class="center">
+                <div class="ui primary button">Add Friend</div>
+              </div>
+            </div>
+          </div>
+          <img src="/images/spongeBob.jpg">
+        </div>
+        <div class="content">
+          <a class="header" href="/#/nickelodeon/spongebob">Spongebob Squarepants</a>
+          <div class="meta">
+            <a class="header" href="/#/nickelodeon"><span class="date">Nickelodeon</span></a>
+          </div>
+        </div>
+        <div class="extra content">
+          <a>
+            <i class="users icon"></i>
+            2 Members
+          </a>
+        </div>
+      </div>
+      <div class="green fluid card">
+        <div class="blurring dimmable image">
+          <div class="ui dimmer">
+            <div class="content">
+              <div class="center">
+                <div class="ui inverted button">View Page</div>
+              </div>
+            </div>
+          </div>
+          <img src="/images/rnm.jpg">
+        </div>
+        <div class="content">
+          <a class="header" href="/#/cartoon-network/adventure-time">Rick and Morty</a>
+          <div class="meta">
+            <a class="header" href="/#/cartoon-network"><span class="date">Adult Swim</span></a>
+          </div>
+        </div>
+        <div class="extra content">
+          <a>
+            <i class="users icon"></i>
+            1 Members
+          </a>
+        </div>
+      </div>
+      <div class="red fluid card">
+        <div class="blurring dimmable image">
+          <div class="ui dimmer">
+            <div class="content">
+              <div class="center">
+                <div class="ui inverted button">View Page</div>
+              </div>
+            </div>
+          </div>
+          <img src="/images/PhineasnFerb.png">
+        </div>
+        <div class="content">
+          <a class="header" href="/#/cartoon-network/adventure-time">Phineas and Ferb</a>
+          <div class="meta">
+            <a class="header" href="/#/cartoon-network"><span class="date">Disney</span></a>
+          </div>
+        </div>
+        <div class="extra content">
+          <a>
+            <i class="users icon"></i>
+            1 Members
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>

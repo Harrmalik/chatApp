@@ -43,9 +43,7 @@
           <a href ng-click="selectImg(3)"><img ng-class="{ selectedBorder : imgSelected(3) }" class="ui image" src="/images/shaggy.jpg"></a>
           <a href ng-click="selectImg(4)"><img ng-class="{ selectedBorder : imgSelected(4) }" class="ui image" src="/images/sponge.jpeg"></a>
           <a href ng-click="selectImg(5)"><img ng-class="{ selectedBorder : imgSelected(5) }" class="ui image" src="/images/rnm.png"></a>
-        </div>
-        <div class="ui tiny images" ng-repeat="image in images">
-          hey
+          <a href ng-click="selectImg(6)"><img ng-class="{ selectedBorder : imgSelected(6) }" class="ui image" src="/images/phineas.png"></a>
         </div>
         <input class="ui button blue" type="submit" value="Send" id="send" />
      </form>
@@ -65,7 +63,7 @@
           <div class="required field">
             <label>Password</label>
             <div class="ui icon input">
-              <input type="password" ng-model="user.password" placeholder="Password">
+              <input type="password" placeholder="Password">
               <i class="lock icon"></i>
             </div>
           </div>
@@ -77,12 +75,13 @@
         <h5>Change Password</h5>
         <label>Password</label>
         <div class="ui icon input">
-          <input type="password" ng-model="user.password" placeholder="Password">
+          <input type="password" placeholder="Password">
           <i class="lock icon"></i>
         </div>
         
         <input class="ui button blue" type="submit" value="Send" id="send" />
      </form>
+     <div class="ui inverted red button" ng-show='authenticated' ng-click="deleteUser(current_user)">Delete Account</div>
   </article>
   
   <article ng-show="isSelected('privacy')">

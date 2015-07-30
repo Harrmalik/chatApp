@@ -13,21 +13,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.3/semantic.min.css">
     <link rel="stylesheet" href="css/style.css">
 	</head>
+	
 	<body>
-		<div id='main'>
-			 <header class="ui sixteen wide column" ng-controller="navController as NavCtrl">
-			   <nav class="ui secondary pointing menu blue floating" ng-controller="authController">
+			<header class="ui sixteen wide column" ng-controller="navController as NavCtrl">
+  		   <nav class="ui secondary pointing menu blue floating" ng-controller="authController">
           <a class="item" href="#" ng-class="{ active : isSelected('index')}" ng-click="selectedPage('index')">
             <i class="home icon"></i> Home
           </a>
-          <a class="item" href="#/inbox" ng-class="{ active : isSelected('inbox')}" ng-click="selectedPage('inbox')">
+          <a class="item" href="#/inbox" ng-class="{ active : isSelected('inbox')}" ng-click="selectedPage('inbox')" ng-show="authenticated">
             <i class="mail icon"></i> Inbox
           </a>
-          <a class="item" href="#/friends" ng-class="{ active : isSelected('friends')}" href ng-click="selectedPage('friends')">
+          <a class="item" href="#/friends" ng-class="{ active : isSelected('friends')}" href ng-click="selectedPage('friends')" ng-show="authenticated">
             <i class="user icon"></i> Friends
           </a>
           
           <nav class="right secondary menu">
+            <div class="item" ng-controller="postsController">
+              <div class="ui search icon input">
+                <div class="ui icon input">
+                  <input class="prompt" type="text" placeholder="Find a message or user" ng-model="search" ng-change="searchUser=search">
+                  <i class="search icon"></i>
+                </div>
+                <div class="results"></div>
+              </div>
+            </div>
             <a class="item" href="#/login" ng-hide="authenticated" ng-class="{ active : isSelected('login')}" ng-click="selectedPage('login')">
               <i class="mail icon"></i> Login
             </a>
@@ -44,11 +53,15 @@
         </nav>
       </header>
       
-			<section ng-view class="ui grid" ng-controller="postsController">
-			</section>
-		</div>
+			<section ng-view class="ui grid" ng-controller="postsController"></section>
+			
+			<footer>
+			  <p>add footer stuff</p>
+			</footer>
+			
 		<!--                            SCRIPT FILES                                                         -->
     <script src="js/main.js"></script>
+    
     
     <!--                            CONTROLLERS                                                         -->
     <script src="js/chatApp.js"></script>
@@ -56,5 +69,6 @@
     <script src="js/controllers/authenticate.js"></script>
     <script src="js/controllers/settings.js"></script>
     <script src="js/controllers/posts.js"></script>
+    <script src="js/controllers/shows.js"></script>
 	</body>
 </html>

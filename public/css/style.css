@@ -17,6 +17,11 @@ a {
 	background-color: #eceff3;
 }
 
+header {
+	max-width: 1200px;
+	margin: 0 auto !important;
+}
+
 section {
 	padding: 20px 0 !important;
 	max-width: 1200px;
@@ -53,4 +58,8 @@ section {
 #livesearch{
 	border: 1px solid #000;
 	background-color: #fff;
+}
+
+.hidden {
+	display: none;
 }

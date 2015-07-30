@@ -27,3 +27,15 @@ appServices.factory('followFactory',['$resource', function($resource){
         'update': { method:'put' }
     });
 }]);
+
+appServices.factory('unfollowFactory',['$resource', function($resource){
+	return $resource('/api/unfollow/:id', null,  
+		{
+        'update': { method:'put' }
+    });
+}]);
+
+appServices.factory('searchService', ['postFactory', function(postFactory) {
+    var allPosts = postFactory.query();
+    return allPosts;
+}]);

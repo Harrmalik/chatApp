@@ -5,3 +5,7 @@ $('#chat').on('click', function() {
 $('#avatars img').on('click', function(){
     console.log('clicked');
 });
+
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});

@@ -1,0 +1,80 @@
+{
+  "network": "Cartoon Network",
+  "shows" : [
+    {
+      "show" : "Adventure Time",
+      "image" : {
+          "url" : "/images/adventureTime.png",
+          "alt" : "adventure time"
+      },
+      "url" : "#/cartoon-network/adventure-time",
+      "members" : 3,
+      "likes" : 5,
+      "color" : "blue"
+    },
+    {
+      "show" : "Regular Show",
+      "image" : {
+          "url" : "/images/regularShow.jpg",
+          "alt" : "adventure time"
+      },
+      "url" : "#/cartoon-network/adventure-time",
+      "members" : 3,
+      "likes" : 5,
+      "color" : "green"
+    },
+    {
+      "show" : "Ed Edd n Eddy",
+      "image" : {
+          "url" : "/images/edEddnEddy.jpg",
+          "alt" : "adventure time"
+      },
+      "url" : "#/cartoon-network/adventure-time",
+      "members" : 3,
+      "likes" : 5,
+      "color" : "red"
+    },
+    {
+      "show" : "Courage the Cowardly Dog",
+      "image" : {
+          "url" : "/images/courageTheDog.png",
+          "alt" : "adventure time"
+      },
+      "url" : "#/cartoon-network/adventure-time",
+      "members" : 3,
+      "likes" : 5,
+      "color" : "orange"
+    }
+  ],
+  "image": {
+      "url" : "/images/cartoon-network.png",
+      "alt" : "cartoon network logo"
+  },
+  "bio": {
+      "p1": "A human boy named Finn and adoptive brother and best friend Jake the Dog, protect the citizens of the Land of Ooo from foes of various shapes and sizes.",
+      "p2": "somemore wwqrver"
+  },
+  "posts" : [
+    {
+      "username" : "adventure time fan 1",
+      "display_name" : "ilovefinn",
+      "text" : "Finn is the best cartoon character ever said everyone!",
+      "created_at" : "April 4th",
+      "likes" : 5
+    },
+    {
+      "username" : "adventure time fan 2",
+      "display_name" : "ilovefinn",
+      "text" : "Finn is the best cartoon character ever said everyone!",
+      "created_at" : "April 4th",
+      "likes" : 5
+    },
+    {
+      "username" : "adventure time fan 3",
+      "display_name" : "ilovefinn",
+      "text" : "Finn is the best cartoon character ever said everyone!",
+      "created_at" : "April 4th",
+      "likes" : 5
+    }
+    ]
+}

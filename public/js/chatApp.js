@@ -1,6 +1,6 @@
-var app = angular.module('chatApp', ['ngRoute', 'appSettings', 'appServices', 'appAuthentication', 'appPosts']).run(function($rootScope, $http){
+var app = angular.module('chatApp', ['ngRoute', 'appSettings', 'appServices', 'appAuthentication', 'appPosts', 'appShows']).run(function($rootScope, $http){
   
-	$rootScope.images = ['/images/finn.png', '/images/cartman.jpeg', '/images/stewie.png', '/images/shaggy.jpg', '/images/sponge.jpeg', '/images/rnm.png'];
+	$rootScope.images = ['/images/finn.png', '/images/cartman.jpeg', '/images/stewie.png', '/images/shaggy.jpg', '/images/sponge.jpeg', '/images/rnm.png', '/images/phineas.png'];
 });
 
 
@@ -9,7 +9,8 @@ app.config(function($routeProvider){
     //the timeline display
     .when('/', {
       templateUrl: '/feed.html',
-      controller: 'authController'
+      controller: 'authController',
+      controllerAs: 'authCtrl'
     })
     //the timeline display
     .when('/user', {
@@ -35,6 +36,16 @@ app.config(function($routeProvider){
     .when('/settings', {
       templateUrl: '/settings.html',
       controller: 'settingsController'
+    })
+    //the timeline display
+    .when('/:network', {
+      templateUrl: '/network.html',
+      controller: 'showController'
+    })
+    //the timeline display
+    .when('/:network/:show', {
+      templateUrl: '/show.html',
+      controller: 'showController'
     });
 });
 
@@ -75,4 +86,4 @@ app.directive('focusMe', function($timeout) {
   };
 });
 
-var images = ['/images/finn.png', '/images/cartman.jpeg', '/images/stewie.png', '/images/shaggy.jpg', '/images/sponge.jpeg', '/images/rnm.png'];
+var images = ['/images/finn.png', '/images/cartman.jpeg', '/images/stewie.png', '/images/shaggy.jpg', '/images/sponge.jpeg', '/images/rnm.png', '/images/phineas.png'];

@@ -1,0 +1,36 @@
+<div class="ui segment stacked blue">
+  <h3 class="ui header">
+     <img ng-src="{{user_avatar}}" class="ui image tiny floated left">
+     <a href="{{'#/?param1=' + whoEver }}">{{whoEver}}</a>
+     <div class="sub header floated right">{{user_display}}</div>
+  </h3>
+  <br><br>
+  <br>
+   <div class="ui mini statistic floated">
+     <div class="label">
+       Tweets
+     </div>
+     <div class="value">
+       {{cheeps}}
+     </div>
+
+   </div>
+     <div class="ui mini statistic floated">
+
+       <div class="label">
+        Following
+       </div>
+       <div class="value">
+        {{following}}
+       </div>
+     </div>
+     <div class="ui mini statistic floated">
+
+       <div class="label">
+        Followers
+       </div>
+       <div class="value">
+        {{followers}}
+       </div>
+     </div>
+</div>
